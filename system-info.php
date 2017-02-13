@@ -3,12 +3,12 @@
 /*
  * Plugin Name: WP System Info
  * Version: 1.0
- * Plugin URI: http://bit-bytetech.com/plugin/system-info
+ * Plugin URI: https://wordpress.org/plugins/wp-system-info
  * Description: See the basic and main system information about yout site and server. 
  * Author: Nurul Amin
  * Author URI: http://nurulamin.me
- * Requires at least: 4.0 nnmz ,      
- Z    * Tested up to: 4.1.1
+ * Requires at least: 4.0        
+ * Tested up to: 4.1.1
  * License: GPL2
  * Text Domain: bsi
  * Domain Path: /lang/

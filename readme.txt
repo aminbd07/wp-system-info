@@ -6,7 +6,7 @@ Tested up to: 4.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WordPress Site and server information show at a glance. 
+Show WordPress Site, Current Theme, active plugin and server related information at a glance. 
 
 
 == Description ==
@@ -54,9 +54,10 @@ Extract the zip file and just drop the contents in the wp-content/plugins/ direc
 
 == Screenshots ==
 
-1. 
-2.
-3.
+1. 'WP System Info' menu location under tools menu.   
+2. Wordpress Related Information 
+3. Server Related Information  
+4. Theme and Plugin Related Information 
 
 == Changelog ==
 
