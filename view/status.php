@@ -11,7 +11,7 @@ $common = new BSI_Common();
     <table class="" cellspacing="0" id="">
         <thead>
             <tr>
-                <th colspan="2" ><h2><?php _e('WordPress Environment', 'bsi'); ?></h2></th>
+                <th colspan="2" ><h2><?php _e('WordPress Information', 'bsi'); ?></h2></th>
             </tr>
         </thead>
         <tbody>
@@ -37,24 +37,25 @@ $common = new BSI_Common();
             <tr>
                 <td ><?php _e('WP Multisite', 'bsi'); ?>:</td>
 
-                <td><?php if (is_multisite())
-    echo '<span class="dashicons dashicons-yes"></span>';
-else
-    echo '&ndash;';
-?></td>
+                <td><?php
+                    if (is_multisite())
+                        echo '<span class="dashicons dashicons-yes"></span>';
+                    else
+                        echo '&ndash;';
+                    ?></td>
             </tr>
             <tr>
                 <td ><?php _e('WP Memory Limit', 'bsi'); ?>:</td>
 
                 <td><?php
-                     $memory = $common->memory_size_convert(WP_MEMORY_LIMIT);
-                  
-                    
+                    $memory = $common->memory_size_convert(WP_MEMORY_LIMIT);
+
+
                     if (function_exists('memory_get_usage')) {
                         $system_memory = $common->memory_size_convert(@ini_get('memory_limit'));
                         $memory = max($memory, $system_memory);
                     }
-                    
+
 
 
                     if ($memory < 67108864) {
@@ -63,7 +64,6 @@ else
                         echo '<span class="ok">' . size_format($memory) . ' </span>';
                     }
                     ///
-                    
                     ?></td>
             </tr>
             <tr>
@@ -74,7 +74,7 @@ else
                         <span class="dashicons dashicons-yes"></span> Yes 
                     <?php else : ?>
                         <span class="no"> <span class="dashicons dashicons-no"></span> No </span>
-<?php endif; ?>
+                    <?php endif; ?>
                 </td>
             </tr>
             <tr>
@@ -83,46 +83,33 @@ else
                 <td>
                     <?php if (defined('DISABLE_WP_CRON') && DISABLE_WP_CRON) : ?>
                         <span class="no"> <span class="dashicons dashicons-no"></span> No </span>
-                        <?php else : ?>
+                    <?php else : ?>
                         <span class="yes"><span class="dashicons dashicons-yes"></span> Yes</span>
-<?php endif; ?>
+                    <?php endif; ?>
                 </td>
             </tr>
-            
+
             <tr>
                 <td  ><?php _e('Language', 'bsi'); ?>:</td>
 
                 <td><?php echo get_locale(); ?></td>
             </tr>
-            
+
             <tr>
                 <td  ><?php _e('Upload Directory  Location', 'bsi'); ?>:</td>
 
-                <td><?php  
-                $upload_dir = wp_upload_dir();
-                echo $upload_dir['baseurl'];
-                ?></td>
+                <td><?php
+                    $upload_dir = wp_upload_dir();
+                    echo $upload_dir['baseurl'];
+                    ?></td>
             </tr>
-            
-            
-            <tr>
-                <td  ><?php _e('Debug Log File Location', 'bsi'); ?>:</td>
-
-                <td><?php  
-                echo ini_get('error_log') ; 
-                ?></td>
-            </tr>
-            
-          
-            
-            
         </tbody>
     </table>
 
     <table   cellspacing="0">
         <thead>
             <tr>
-                <th colspan="2"  ><h2><?php _e('Server Environment', 'bsi'); ?></h2></th>
+                <th colspan="2"  ><h2><?php _e('Server Information', 'bsi'); ?></h2></th>
             </tr>
         </thead>
         <tbody>
@@ -149,11 +136,11 @@ else
                     }
                     ?></td>
             </tr>
-<?php if (function_exists('ini_get')) : ?>
+            <?php if (function_exists('ini_get')) : ?>
                 <tr>
                     <td ><?php _e('PHP Post Max Size', 'bsi'); ?>:</td>
 
-                    <td><?php echo size_format(ini_get('post_max_size')); ?></td>
+                    <td><?php echo size_format($common->memory_size_convert(ini_get('post_max_size'))); ?></td>
                 </tr>
                 <tr>
                     <td  ><?php _e('PHP Time Limit', 'bsi'); ?>:</td>
@@ -208,7 +195,7 @@ else
                         ?>
                     </td>
                 </tr>
-<?php endif; ?>
+            <?php endif; ?>
             <tr>
                 <td  ><?php _e('Max Upload Size', 'bsi'); ?>:</td>
 
@@ -218,7 +205,7 @@ else
                 <td  ><?php _e('Default Timezone is UTC', 'bsi'); ?>:</td>
 
                 <td><?php
-                     $default_timezone = date_default_timezone_get();
+                    $default_timezone = date_default_timezone_get();
                     if ('UTC' !== $default_timezone) {
                         echo '<span class="error"><span class="dashicons dashicons-warning"></span>No' . sprintf(__('Default timezone is %s - it should be UTC', 'bsi'), $default_timezone) . '</span>';
                     } else {
@@ -227,15 +214,15 @@ else
                     ?>
                 </td>
             </tr>
-              <tr>
+            <tr>
                 <td  ><?php _e('PHP Error Log File Location', 'bsi'); ?>:</td>
 
-                <td><?php  
-                echo ini_get('error_log') ; 
-                ?></td>
+                <td><?php
+                    echo ini_get('error_log');
+                    ?></td>
             </tr>
-            
-            
+
+
             <?php
             $fields = array();
 
@@ -293,40 +280,39 @@ else
                 $fields['mbstring']['note'] = sprintf(__('Your server does not support the %s functions - this is required for better character encoding. Some fallbacks will be used instead for it.', 'bsi'), '<a href="https://php.net/manual/en/mbstring.installation.php">mbstring</a>');
             }
 
-             
+
             // Remote Get.
             $fields['remote_get']['name'] = 'Remote Get Status';
 
-            $response = wp_remote_get('https://www.paypal.com/cgi-bin/webscr', 
-                    array(
-				'timeout'     => 60,
-				'user-agent'  => 'BSI/' . 1.0,
-				'httpversion' => '1.1',
-				'body'        => array(
-					'cmd'    => '_notify-validate'
-				)
-			));
-             $response_code = wp_remote_retrieve_response_code( $response );
-             if($response_code == 200){
-                
-                   $fields['remote_get']['success'] = true;
-             }else {
-                   $fields['remote_get']['success'] = false;
-             }
-             
+            $response = wp_remote_get('https://www.paypal.com/cgi-bin/webscr', array(
+                'timeout' => 60,
+                'user-agent' => 'BSI/' . 1.0,
+                'httpversion' => '1.1',
+                'body' => array(
+                    'cmd' => '_notify-validate'
+                )
+            ));
+            $response_code = wp_remote_retrieve_response_code($response);
+            if ($response_code == 200) {
 
-             
+                $fields['remote_get']['success'] = true;
+            } else {
+                $fields['remote_get']['success'] = false;
+            }
 
-			foreach ( $fields as $field ) {
-				$mark = ! empty( $field['success'] ) ? 'yes' : 'error';
+
+
+
+            foreach ($fields as $field) {
+                $mark = !empty($field['success']) ? 'yes' : 'error';
                 ?>
                 <tr>
                     <td data-export-label="<?php echo esc_html($field['name']); ?>"><?php echo esc_html($field['name']); ?>:</td>
 
                     <td>
-						<span class="<?php echo $mark; ?>">
-							<?php echo ! empty( $field['success'] ) ? '<span class="dashicons dashicons-yes"></span>Yes' : '<span class="dashicons dashicons-no-alt"></span> No'; ?> <?php echo ! empty( $field['note'] ) ? wp_kses_data( $field['note'] ) : ''; ?>
-						</span>
+                        <span class="<?php echo $mark; ?>">
+                            <?php echo!empty($field['success']) ? '<span class="dashicons dashicons-yes"></span>Yes' : '<span class="dashicons dashicons-no-alt"></span> No'; ?> <?php echo!empty($field['note']) ? wp_kses_data($field['note']) : ''; ?>
+                        </span>
                     </td>
                 </tr>
                 <?php
@@ -337,80 +323,74 @@ else
 
 
     <table class="" cellspacing="0">
-	<thead>
-		<tr>
-			<th colspan="2" ><h2><?php _e( 'Current Theme', 'bsi' ); ?></h2></th>
-		</tr>
-	</thead>
-		<?php
-		include_once( ABSPATH . 'wp-admin/includes/theme-install.php' );
+        <thead>
+            <tr>
+                <th colspan="2" ><h2><?php _e('Current Theme', 'bsi'); ?></h2></th>
+            </tr>
+        </thead>
+        <?php
+        include_once( ABSPATH . 'wp-admin/includes/theme-install.php' );
 
-		$active_theme         = wp_get_theme();
-		$theme_version        = $active_theme->Version;
-		$update_theme_version = WC_Admin_Status::get_latest_theme_version( $active_theme );
-		?>
-	<tbody>
-		<tr>
-			<td width="25%"><?php _e( 'Name', 'bsi' ); ?>:</td>
-			
-			<td><?php echo esc_html( $active_theme->Name ); ?></td>
-		</tr>
-		<tr>
-			<td  ><?php _e( 'Version', 'bsi' ); ?>:</td>
-			
-			<td><?php
-				echo esc_html( $theme_version );
+        $active_theme = wp_get_theme();
+        $theme_version = $active_theme->Version;
+        ?>
+        <tbody>
+            <tr>
+                <td width="25%"><?php _e('Name', 'bsi'); ?>:</td>
 
-				if ( version_compare( $theme_version, $update_theme_version, '<' ) ) {
-					echo ' &ndash; <strong style="color:red;">' . sprintf( __( '%s is available', 'bsi' ), esc_html( $update_theme_version ) ) . '</strong>';
-				}
-			?></td>
-		</tr>
-		<tr>
-			<td  ><?php _e( 'Author URL', 'bsi' ); ?>:</td>
-			
-			<td><?php echo $active_theme->{'Author URI'}; ?></td>
-		</tr>
-		<tr>
-			<td  ><?php _e( 'Child Theme', 'bsi' ); ?>:</td>
-			
-			<td><?php
-				echo is_child_theme() ? '<span class="yes"><span class="dashicons dashicons-yes"></span>Yes</span>' : '<span class="dashicons dashicons-no-alt"></span> No.  ' . sprintf( __( 'If you\'re want to modifying a theme, it safe to create a child theme.  See: <a href="%s" target="_blank">How to create a child theme</a>', 'bsi' ), 'https://codex.wordpress.org/Child_Themes' );
-			?></td>
-		</tr>
-		<?php
-		if( is_child_theme() ) :
-			$parent_theme         = wp_get_theme( $active_theme->Template );
-			$update_theme_version = WC_Admin_Status::get_latest_theme_version( $parent_theme );
-		?>
-		<tr>
-			<td  ><?php _e( 'Parent Theme Name', 'bsi' ); ?>:</td>
-			
-			<td><?php echo esc_html( $parent_theme->Name ); ?></td>
-		</tr>
-		<tr>
-			<td  ><?php _e( 'Parent Theme Version', 'bsi' ); ?>:</td>
-			
-			<td><?php
-				echo esc_html( $parent_theme->Version );
+                <td><?php echo esc_html($active_theme->Name); ?></td>
+            </tr>
+            <tr>
+                <td  ><?php _e('Version', 'bsi'); ?>:</td>
 
-				if ( version_compare( $parent_theme->Version, $update_theme_version, '<' ) ) {
-					echo ' &ndash; <strong style="color:red;">' . sprintf( __( '%s is available', 'bsi' ), esc_html( $update_theme_version ) ) . '</strong>';
-				}
-			?></td>
-		</tr>
-		<tr>
-			<td  ><?php _e( 'Parent Theme Author URL', 'bsi' ); ?>:</td>
-			
-			<td><?php echo $parent_theme->{'Author URI'}; ?></td>
-		</tr>
-		<?php endif ?>
-		 
-	</tbody>
-</table>
+                <td><?php
+        echo esc_html($theme_version);
+        ?></td>
+            </tr>
+            <tr>
+                <td  ><?php _e('Author URL', 'bsi'); ?>:</td>
 
-    
-    
+                <td><?php echo $active_theme->{'Author URI'}; ?></td>
+            </tr>
+            <tr>
+                <td  ><?php _e('Child Theme', 'bsi'); ?>:</td>
+
+                <td><?php
+                    echo is_child_theme() ? '<span class="yes"><span class="dashicons dashicons-yes"></span>Yes</span>' : '<span class="dashicons dashicons-no-alt"></span> No.  ' . sprintf(__('If you\'re want to modifying a theme, it safe to create a child theme.  See: <a href="%s" target="_blank">How to create a child theme</a>', 'bsi'), 'https://codex.wordpress.org/Child_Themes');
+        ?></td>
+            </tr>
+                    <?php
+                    if (is_child_theme()) :
+                        $parent_theme = wp_get_theme($active_theme->Template);
+                        ?>
+                <tr>
+                    <td  ><?php _e('Parent Theme Name', 'bsi'); ?>:</td>
+
+                    <td><?php echo esc_html($parent_theme->Name); ?></td>
+                </tr>
+                <tr>
+                    <td  ><?php _e('Parent Theme Version', 'bsi'); ?>:</td>
+
+                    <td><?php
+            echo esc_html($parent_theme->Version);
+
+            if (version_compare($parent_theme->Version, $update_theme_version, '<')) {
+                echo ' &ndash; <strong style="color:red;">' . sprintf(__('%s is available', 'bsi'), esc_html($update_theme_version)) . '</strong>';
+            }
+                        ?></td>
+                </tr>
+                <tr>
+                    <td  ><?php _e('Parent Theme Author URL', 'bsi'); ?>:</td>
+
+                    <td><?php echo $parent_theme->{'Author URI'}; ?></td>
+                </tr>
+<?php endif ?>
+
+        </tbody>
+    </table>
+
+
+
     <table class="" cellspacing="0">
         <thead>
             <tr>
@@ -418,68 +398,67 @@ else
             </tr>
         </thead>
         <tbody>
-            <?php
-            $active_plugins = (array) get_option('active_plugins', array());
+<?php
+$active_plugins = (array) get_option('active_plugins', array());
 
-            if (is_multisite()) {
-                $network_activated_plugins = array_keys(get_site_option('active_sitewide_plugins', array()));
-                $active_plugins = array_merge($active_plugins, $network_activated_plugins);
+if (is_multisite()) {
+    $network_activated_plugins = array_keys(get_site_option('active_sitewide_plugins', array()));
+    $active_plugins = array_merge($active_plugins, $network_activated_plugins);
+}
+
+foreach ($active_plugins as $plugin) {
+
+    $plugin_data = @get_plugin_data(WP_PLUGIN_DIR . '/' . $plugin);
+    $dirname = dirname($plugin);
+    $version_string = '';
+    $network_string = '';
+
+    if (!empty($plugin_data['Name'])) {
+
+        // Link the plugin name to the plugin url if available.
+        $plugin_name = esc_html($plugin_data['Name']);
+
+        if (!empty($plugin_data['PluginURI'])) {
+            $plugin_name = '<a href="' . esc_url($plugin_data['PluginURI']) . '" title="' . esc_attr__('Visit plugin homepage', 'bsi') . '" target="_blank">' . $plugin_name . '</a>';
+        }
+
+        if (strstr($dirname, 'bsi-') && strstr($plugin_data['PluginURI'], 'woothemes.com')) {
+
+            if (false === ( $version_data = get_transient(md5($plugin) . '_version_data') )) {
+                $changelog = wp_safe_remote_get('http://dzv365zjfbd8v.cloudfront.net/changelogs/' . $dirname . '/changelog.txt');
+                $cl_lines = explode("\n", wp_remote_retrieve_body($changelog));
+                if (!empty($cl_lines)) {
+                    foreach ($cl_lines as $line_num => $cl_line) {
+                        if (preg_match('/^[0-9]/', $cl_line)) {
+                            $date = str_replace('.', '-', trim(substr($cl_line, 0, strpos($cl_line, '-'))));
+                            $version = preg_replace('~[^0-9,.]~', '', stristr($cl_line, "version"));
+                            $update = trim(str_replace("*", "", $cl_lines[$line_num + 1]));
+                            $version_data = array('date' => $date, 'version' => $version, 'update' => $update, 'changelog' => $changelog);
+                            set_transient(md5($plugin) . '_version_data', $version_data, DAY_IN_SECONDS);
+                            break;
+                        }
+                    }
+                }
             }
 
-            foreach ($active_plugins as $plugin) {
+            if (!empty($version_data['version']) && version_compare($version_data['version'], $plugin_data['Version'], '>')) {
+                $version_string = ' &ndash; <strong style="color:red;">' . esc_html(sprintf(_x('%s is available', 'Version info', 'bsi'), $version_data['version'])) . '</strong>';
+            }
 
-                $plugin_data = @get_plugin_data(WP_PLUGIN_DIR . '/' . $plugin);
-                $dirname = dirname($plugin);
-                $version_string = '';
-                $network_string = '';
-
-                if (!empty($plugin_data['Name'])) {
-
-                    // Link the plugin name to the plugin url if available.
-                    $plugin_name = esc_html($plugin_data['Name']);
-
-                    if (!empty($plugin_data['PluginURI'])) {
-                        $plugin_name = '<a href="' . esc_url($plugin_data['PluginURI']) . '" title="' . esc_attr__('Visit plugin homepage', 'bsi') . '" target="_blank">' . $plugin_name . '</a>';
-                    }
-
-                    if (strstr($dirname, 'bsi-') && strstr($plugin_data['PluginURI'], 'woothemes.com')) {
-
-                        if (false === ( $version_data = get_transient(md5($plugin) . '_version_data') )) {
-                            $changelog = wp_safe_remote_get('http://dzv365zjfbd8v.cloudfront.net/changelogs/' . $dirname . '/changelog.txt');
-                            $cl_lines = explode("\n", wp_remote_retrieve_body($changelog));
-                            if (!empty($cl_lines)) {
-                                foreach ($cl_lines as $line_num => $cl_line) {
-                                    if (preg_match('/^[0-9]/', $cl_line)) {
-
-                                        $date = str_replace('.', '-', trim(substr($cl_line, 0, strpos($cl_line, '-'))));
-                                        $version = preg_replace('~[^0-9,.]~', '', stristr($cl_line, "version"));
-                                        $update = trim(str_replace("*", "", $cl_lines[$line_num + 1]));
-                                        $version_data = array('date' => $date, 'version' => $version, 'update' => $update, 'changelog' => $changelog);
-                                        set_transient(md5($plugin) . '_version_data', $version_data, DAY_IN_SECONDS);
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-
-                        if (!empty($version_data['version']) && version_compare($version_data['version'], $plugin_data['Version'], '>')) {
-                            $version_string = ' &ndash; <strong style="color:red;">' . esc_html(sprintf(_x('%s is available', 'Version info', 'bsi'), $version_data['version'])) . '</strong>';
-                        }
-
-                        if ($plugin_data['Network'] != false) {
-                            $network_string = ' &ndash; <strong style="color:black;">' . __('Network enabled', 'bsi') . '</strong>';
-                        }
-                    }
-                    ?>
+            if ($plugin_data['Network'] != false) {
+                $network_string = ' &ndash; <strong style="color:black;">' . __('Network enabled', 'bsi') . '</strong>';
+            }
+        }
+        ?>
                     <tr>
                         <td width="25%"><?php echo $plugin_name; ?></td>
 
                         <td><?php echo sprintf(_x('by %s', 'by author', 'bsi'), $plugin_data['Author']) . ' &ndash; ' . esc_html($plugin_data['Version']) . $version_string . $network_string; ?></td>
                     </tr>
-                    <?php
-                }
-            }
-            ?>
+        <?php
+    }
+}
+?>
         </tbody>
     </table>
 </div>
