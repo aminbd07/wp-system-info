@@ -39,6 +39,9 @@ class Bbtech_SI {
         
         register_activation_hook(__FILE__, array($this, 'install'));
         //Do some thing after load this plugin
+        
+        add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+        
         do_action('bsi_loaded');
     }
 
@@ -51,7 +54,7 @@ class Bbtech_SI {
     function init_actions() {
         add_action('admin_menu', array($this, 'admin_menu'));
         add_action('plugins_loaded', array($this, 'load_textdomain'));
-        add_action('wp_enqueue_scripts', array($this, 'admin_scripts'));
+       
     }
 
     
@@ -90,9 +93,10 @@ class Bbtech_SI {
     
     
     static function admin_scripts() { 
+         
         wp_enqueue_script( 'jquery' );
         wp_enqueue_script( 'jquery-ui-core' );
-        wp_enqueue_script( 'bsi_admin', plugins_url( 'assets/js/admin.js', __FILE__ ), '', false, true );
+       // wp_enqueue_script( 'bsi_admin', plugins_url( 'assets/js/admin.js', __FILE__ ), '', false, true );
         wp_localize_script( 'bsi_admin', 'BSI_Vars', array(
             'ajaxurl'       => admin_url( 'admin-ajax.php' ),
             'nonce'         => wp_create_nonce( 'bsi_nonce' ), 
@@ -100,7 +104,8 @@ class Bbtech_SI {
              
         ) ); 
         
-        wp_enqueue_style( 'bsi_admin', plugins_url( 'assets/css/admin.css', __FILE__ ) );
+        wp_enqueue_style( 'bsi_admin', plugins_url( '/assets/css/style.css', __FILE__ ) );
+        
         wp_enqueue_style( 'dashicons' );
         do_action( 'bsi_admin_scripts' );
     }
