@@ -2,7 +2,7 @@
 
 /*
  * Plugin Name: WP System Info
- * Version: 1.0
+ * Version: 1.1
  * Plugin URI: https://wordpress.org/plugins/wp-system-info
  * Description: See the basic and main system information about yout site and server. 
  * Author: Nurul Amin
@@ -96,7 +96,7 @@ class Bbtech_SI {
          
         wp_enqueue_script( 'jquery' );
         wp_enqueue_script( 'jquery-ui-core' );
-       // wp_enqueue_script( 'bsi_admin', plugins_url( 'assets/js/admin.js', __FILE__ ), '', false, true );
+        wp_enqueue_script( 'bsi_admin', plugins_url( 'assets/js/script.js', __FILE__ ), '', false, true );
         wp_localize_script( 'bsi_admin', 'BSI_Vars', array(
             'ajaxurl'       => admin_url( 'admin-ajax.php' ),
             'nonce'         => wp_create_nonce( 'bsi_nonce' ), 

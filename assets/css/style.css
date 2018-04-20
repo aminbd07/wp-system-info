@@ -17,6 +17,10 @@
     
 }
 
+.bsi   h2{
+    text-align: center !important;
+}
+
 .bsi table td,
 .bsi table th {
     background-color: #fff !important;
