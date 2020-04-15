@@ -192,5 +192,55 @@ class BSI_Common {
     function pluginInfo() {
         
     }
+    function postTypeInfo(){
+	    global $wpdb;
+
+	    $post_types = $wpdb->get_results( "SELECT post_type AS 'type', count(1) AS 'count' FROM {$wpdb->posts} GROUP BY post_type ORDER BY count DESC;" );
+
+	    return is_array( $post_types ) ? $post_types : array();
+    }
+
+    function getTimeInfo(){
+    	global $wpdb;
+    	$data = array(
+    		array(
+    			'label' => 'WP Local Time',
+			    'value' =>  $this::get_timezone()
+		    ),
+		    array(
+    			'label' => 'DB Time ',
+			    'value' =>    $wpdb->get_var( 'SELECT utc_timestamp()' )
+		    ),
+		     array(
+    			'label' => 'PHP Time',
+			    'value' =>  date( 'Y-m-d H:i:s' ) ,
+		    ),
+
+
+	    );
+    	return $data;
+    }
+
+	static function get_timezone() {
+		$times = get_option( 'timezone_string' );
+
+		// Remove old Etc mappings. Fallback to gmt_offset.
+		if ( false !== strpos( $times, 'Etc/GMT' ) ) {
+			$times = '';
+		}
+
+		if ( empty( $times ) ) { // Create a UTC+- zone if no timezone string exists
+			$current_offset = get_option( 'gmt_offset' );
+			if ( 0 == $current_offset ) {
+				$times = 'UTC+0';
+			} elseif ( $current_offset < 0 ) {
+				$times = 'UTC' . $current_offset;
+			} else {
+				$times = 'UTC+' . $current_offset;
+			}
+		}
+
+		return $times;
+	}
 
 }

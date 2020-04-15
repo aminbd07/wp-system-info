@@ -129,7 +129,7 @@ $common = new BSI_Common();
         <tr>
             <td width="25%" ><?php _e('Server Administrator', 'bsi'); ?>:</td>
 
-            <td><?php echo  $_SERVER['SERVER_ADMIN']; ?></td>
+            <td><?php echo  isset($_SERVER['SERVER_ADMIN'])?$_SERVER['SERVER_ADMIN'] : '' ; ?></td>
         </tr>
         
         <tr>
@@ -247,6 +247,14 @@ $common = new BSI_Common();
                 echo ini_get('error_log');
                 ?></td>
         </tr>
+        <tr>
+            <td  ><?php _e('PHP Extensions', 'bsi'); ?>:</td>
+
+            <td><?php
+                  $extensions = get_loaded_extensions();
+                  echo implode(", ", $extensions);
+                ?></td>
+        </tr>
 
 
         <?php
@@ -344,6 +352,33 @@ $common = new BSI_Common();
             <?php
         }
         ?>
+
+        <tr>
+            <td colspan="2" ><h2><?php _e('Post Types', 'bsi'); ?></h2></td>
+        </tr>
+        <?php
+        foreach ($common->postTypeInfo() as $post_t){
+        ?>
+        <tr>
+            <td data-export-label="<?php echo  $post_t->type ; ?>"><?php echo  $post_t->type ;  ?>:</td>
+
+            <td> <?php echo  $post_t->count ;  ?> </td>
+        </tr>
+        <?php } ?>
+
+        <tr>
+            <td colspan="2" ><h2><?php _e('Time and Zone', 'bsi'); ?></h2></td>
+        </tr>
+        <?php
+        foreach ($common->getTimeInfo() as $itmes){
+        ?>
+        <tr>
+            <td data-export-label="<?php echo $itmes['label']; ?>"><?php echo $itmes['label'] ; ?>:</td>
+
+            <td> <?php  echo $itmes['value']; ?> </td>
+        </tr>
+        <?php } ?>
+
 
         <tr>
             <td colspan="2" ><h2><?php _e('Current Theme', 'bsi'); ?></h2></td>
