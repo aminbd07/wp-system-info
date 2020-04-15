@@ -2,7 +2,7 @@
 Contributors: naminbd
 Tags: Site Information, System Information, Site Info, System Info, Info, Theme Info, Theme Information, Site Check, System Check 
 Donate link: http://nurul.ninja/supportme/
-Requires at least: 3.0
+Requires at least: 4.0
 Tested up to: 5.4
 Requires PHP: 5.6
 Stable tag: trunk

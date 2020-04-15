@@ -2,13 +2,13 @@
 
 /*
  * Plugin Name: WP System Info
- * Version: 1.1
+ * Version: 1.3
  * Plugin URI: https://wordpress.org/plugins/wp-system-info
  * Description: See the basic and main system information about yout site and server. 
  * Author: Nurul Amin
- * Author URI: http://nurulamin.me
+ * Author URI: http://nurul.ninja
  * Requires at least: 4.0        
- * Tested up to: 4.1.1
+ * Tested up to: 5.4
  * License: GPL2
  * Text Domain: bsi
  * Domain Path: /lang/
@@ -17,7 +17,7 @@
 
 class Bbtech_SI {
 
-    public $version = '1.0';
+    public $version = '1.3';
     public $db_version = '1.0';
     protected static $_instance = null;
 
