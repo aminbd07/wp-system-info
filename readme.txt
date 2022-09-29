@@ -2,7 +2,7 @@
 Contributors: naminbd, springdevs
 Tags: Site Information, System Information, Site Info, phpinfo(), System Info, Info, Theme Info, Theme Information, Site Check, System Check, File Persmission, Folder Persmission
 Donate link: http://springdevs.com/
-Requires at least: 5.0
+Requires at least: 5.2
 Tested up to: 6.1
 Requires PHP: 7.4
 Stable tag: trunk
@@ -69,11 +69,13 @@ Extract the zip file and just drop the contents in the wp-content/plugins/ direc
 
 == Screenshots ==
 
-1. 'WP System Info' menu location under tools menu.   
+1. 'WP System Info' menu location.   
 2. Wordpress Related Information 
 3. Server Related Information  
 4. Theme and Plugin Related Information 
 5. Button for export CSV file. 
+6. Raw phpinfo().
+7. Folder & File Persmission information
 
 == Frequently Asked Questions ==
 
