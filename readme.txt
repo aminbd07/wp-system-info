@@ -1,19 +1,19 @@
 === WP System Information ===
-Contributors: naminbd
-Tags: Site Information, System Information, Site Info, System Info, Info, Theme Info, Theme Information, Site Check, System Check 
-Donate link: http://nurul.ninja/supportme/
-Requires at least: 4.0
-Tested up to: 5.5
-Requires PHP: 5.6
+Contributors: naminbd, springdevs
+Tags: Site Information, System Information, Site Info, phpinfo(), System Info, Info, Theme Info, Theme Information, Site Check, System Check, File Persmission, Folder Persmission
+Donate link: http://springdevs.com/
+Requires at least: 5.0
+Tested up to: 6.1
+Requires PHP: 7.4
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Show WordPress Site, Current Theme, active plugin and server related information at a glance.
+Show WordPress Site, Current Theme, active plugin and server related information, php info, file & folder persmission at a glance.
 
 
 == Description ==
-This simple, but useful and important plugin for show site and system Information.
+This simple, but useful and important plugin for show site and system Information, php information, Folder and file Persmission.
 With this plugin, you can see your site information, server information, Theme Information and plugin information in one place.
 ** You also export data to CSV file and download your PC.
 
@@ -53,9 +53,15 @@ With this plugin, you can see your site information, server information, Theme I
    * Active plugin list 
    * Plugin version   
    * Plugin Author URL 
-    
+
+  **PHP info()**
+   * Row PHP info
+
+  **File Persmission**
+   * Show all Filder Persmission
+   * Show all File Persmission 
    
- 
+
 == Installation ==
 
 Extract the zip file and just drop the contents in the wp-content/plugins/ directory of your WordPress installation and then activate the Plugin from Plugins page.
@@ -76,6 +82,12 @@ WP System Info use for quick view about your  WordPress site information and you
 Also show your current theme information and Active Plugin list.  
 
 == Changelog ==
+= 1.5 =
+ * [new] Move Plugin to main menu.
+ * [new] RAW PHP info()
+ * [new] Show Folder Persmission
+ * [new] Show File Persmission
+
 = 1.4 =
  * [new] Check WP Debug Log.
  * [new] WP Degug Log/Error File Location 
