@@ -3,7 +3,7 @@ Contributors: naminbd
 Tags: Site Information, System Information, Site Info, System Info, Info, Theme Info, Theme Information, Site Check, System Check 
 Donate link: http://nurul.ninja/supportme/
 Requires at least: 4.0
-Tested up to: 5.4
+Tested up to: 5.5
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv2 or later
@@ -26,6 +26,7 @@ With this plugin, you can see your site information, server information, Theme I
    * WP Memory Limit
    * Language
    * WP Debug Mode
+   * WP Debug Log and Log File Location
    * Upload Directory Location
 
  **Server Information**
@@ -75,6 +76,11 @@ WP System Info use for quick view about your  WordPress site information and you
 Also show your current theme information and Active Plugin list.  
 
 == Changelog ==
+= 1.4 =
+ * [new] Check WP Debug Log.
+ * [new] WP Degug Log/Error File Location 
+ 
+
 = 1.3 =
  * [new] Post type info.
  * [new] Time Info.

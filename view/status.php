@@ -77,6 +77,33 @@ $common = new BSI_Common();
                 <?php endif; ?>
             </td>
         </tr>
+
+        
+        <tr>
+            <td ><?php _e('WP Debug Log Active', 'bsi'); ?>:</td>
+
+            <td>
+                <?php if (defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) : ?>
+                    <span class="dashicons dashicons-yes"></span> Yes 
+                <?php else : ?>
+                    <span class="no"> <span class="dashicons dashicons-no"></span> No </span>
+                <?php endif; ?>
+            </td>
+        </tr>
+        
+        <tr>
+            <td ><?php _e('WP Debug Log file location', 'bsi'); ?>:</td>
+
+            <td>
+                <?php if (defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) : ?>
+                     <?php echo ini_get('error_log'); ?> 
+                <?php else : ?>
+                    <span class="no"> -- </span>
+                <?php endif; ?>
+            </td>
+        </tr>
+
+
         <tr>
             <td  ><?php _e('WP Cron', 'bsi'); ?>:</td>
 
