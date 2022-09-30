@@ -184,13 +184,84 @@ class Bbtech_SI
     function get_more_free_item()
     {
 
-         $springdevsurl = "https://springdevs.com/";
-?>
-        <script type="text/javascript">
-            window.location = "<?php echo $springdevsurl; ?>";
-        </script>
-<?php
+        $freeItems = array(
 
+            [
+                'image' => "https://ps.w.org/subscription/assets/icon-128x128.png",
+                "title" => " Subscription for WooCommerce",
+                "text" => "A powerfull plugin that allow to enable subscription on woocommerce products.",
+                "url" => "https://wordpress.org/plugins/subscription/",
+            ],
+
+            [
+                'image' => "https://ps.w.org/wc-booking/assets/icon-128x128.png",
+                "title" => "Booking for wooCommerce",
+                "text" => "Show available dates, time in a simple dropdown, take booking for products and services.",
+                "url" => "https://wordpress.org/plugins/wc-booking/",
+            ],
+
+            [
+                'image' => "https://ps.w.org/wc-pre-order/assets/icon-256x256.jpg",
+                "title" => "Pre Order Addon for WooCommerce",
+                "text" => "Create gift vouchers, store credits, special discounts based on the amount spent, etc.",
+                "url" => "https://wordpress.org/plugins/wc-pre-order/",
+            ],
+
+
+            [
+                'image' => "https://ps.w.org/bulk-products-selling/assets/icon-128x128.png",
+                "title" => "Bulk Product Selling ",
+                "text" => "Sell many products in one Like Group Product. But you can use single price here.",
+                "url" => "https://wordpress.org/plugins/bulk-products-selling/",
+            ],
+
+            [
+                'image' => "https://ps.w.org/pdf-invoices-and-packing-slips/assets/icon-128x128.png",
+                "title" => "PDF Invoices & Packing Slips",
+                "text" => "With WooCommerce PDF Invoices and Packing Slips, attach necessary PDF invoices with order confirmation emails.",
+                "url" => "https://wordpress.org/plugins/pdf-invoices-and-packing-slips/",
+            ],
+
+
+            [
+                'image' => "https://ps.w.org/advance-coupons-for-woocommerce/assets/icon-128x128.png",
+                "title" => "Advance Coupons for Woocommerce",
+                "text" => "Create gift vouchers, store credits, special discounts based on the amount spent, etc.",
+                "url" => "https://wordpress.org/plugins/advance-coupons-for-woocommerce/",
+            ],
+
+            
+            [
+                'image' => "https://ps.w.org/wc-sms-notification/assets/icon-128x128.png",
+                "title" => "WC SMS Notification",
+                "text" => "Order SMS Notofication for WooCommerce.",
+                "url" => "https://wordpress.org/plugins/wc-sms-notification/",
+            ],
+
+            [
+                'image' => "https://ps.w.org/product-sharing-buttons/assets/icon-128x128.png",
+                "title" => "Social Sharing Button",
+                "text" => "Share your zest with your friends and others.",
+                "url" => "https://wordpress.org/plugins/product-sharing-buttons/",
+            ],
+
+
+
+            [
+                'image' => "https://ps.w.org/checkout-field-customizer/assets/icon-128x128.png",
+                "title" => "Checkout Field Customizer",
+                "text" => "Customize your checkout fields easily !!",
+                "url" => "https://wordpress.org/plugins/checkout-field-customizer/",
+            ],
+
+
+
+
+
+
+
+        );
+        require(BSI_PATH . '/view/free-plugins.php');
     }
 
 

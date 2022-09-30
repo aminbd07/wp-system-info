@@ -5,7 +5,7 @@ $common = new BSI_Common();
 ?>
 <div class="php_info bsi"> 
     <h1 class="">System Information > File Permission </h1>
-    <div style="bsi">
+    <div>
    
     <table class="" align="center" cellspacing="0" >
 			<thead>

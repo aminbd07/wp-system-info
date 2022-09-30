@@ -1,6 +1,6 @@
 === WP System Information ===
 Contributors: naminbd, springdevs
-Tags: Site Information, System Information, Site Info, phpinfo(), System Info, Info, Theme Info, Theme Information, Site Check, System Check, File Persmission, Folder Persmission
+Tags: Site Information, System Information, File Persmission, Folder Persmission, Site Info, System Info, Info, Theme Info, Theme Information, Site Check, System Check, Post Info, PHP info 
 Donate link: http://springdevs.com/
 Requires at least: 5.2
 Tested up to: 6.1
@@ -55,7 +55,7 @@ With this plugin, you can see your site information, server information, Theme I
    * Plugin Author URL 
 
   **PHP info()**
-   * Row PHP info
+   * RAW PHP info
 
   **File Persmission**
    * Show all Filder Persmission
